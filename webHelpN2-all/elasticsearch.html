@@ -1,0 +1,241 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html lang="en-US" data-preset="contrast" data-primary-color="#307FFF"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="robots" content="noindex"><meta name="built-on" content="2024-04-30T19:02:50.581385"><title>Elasticsearch | Notes</title><script type="application/json" id="virtual-toc-data">[{"id":"-euspxb_475","level":0,"title":"核心概念和原理","anchor":"#-euspxb_475"},{"id":"-euspxb_534","level":0,"title":"使用","anchor":"#-euspxb_534"},{"id":"es","level":0,"title":"ES分布式文档系统","anchor":"#es"},{"id":"es","level":0,"title":"ES 查询语法","anchor":"#es"},{"id":"mapping","level":0,"title":"Mapping","anchor":"#mapping"}]</script><script type="application/json" id="topic-shortcuts"></script><link href="https://resources.jetbrains.com/writerside/apidoc/6.10.0-b259/app.css" rel="stylesheet"><meta name="msapplication-TileColor" content="#000000"><link rel="apple-touch-icon" sizes="180x180" href="https://jetbrains.com/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="https://jetbrains.com/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="https://jetbrains.com/favicon-16x16.png"><meta name="msapplication-TileImage" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-144x144.png"><meta name="msapplication-square70x70logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-70x70.png"><meta name="msapplication-square150x150logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-150x150.png"><meta name="msapplication-wide310x150logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-310x150.png"><meta name="msapplication-square310x310logo" content="https://resources.jetbrains.com/storage/ui/favicons/mstile-310x310.png"><meta name="image" content=""><!-- Open Graph --><meta property="og:title" content="Elasticsearch | Notes"><meta property="og:description" content=""><meta property="og:image" content=""><meta property="og:site_name" content="Notes Help"><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:url" content="writerside-documentation/elasticsearch.html"><!-- End Open Graph --><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content=""><meta name="twitter:title" content="Elasticsearch | Notes"><meta name="twitter:description" content=""><meta name="twitter:creator" content=""><meta name="twitter:image:src" content=""><!-- End Twitter Card --><!-- Schema.org WebPage --><script type="application/ld+json">{
+    "@context": "http://schema.org",
+    "@type": "WebPage",
+    "@id": "writerside-documentation/elasticsearch.html#webpage",
+    "url": "writerside-documentation/elasticsearch.html",
+    "name": "Elasticsearch | Notes",
+    "description": "",
+    "image": "",
+    "inLanguage":"en-US"
+}</script><!-- End Schema.org --><!-- Schema.org WebSite --><script type="application/ld+json">{
+    "@type": "WebSite",
+    "@id": "writerside-documentation/#website",
+    "url": "writerside-documentation/",
+    "name": "Notes Help"
+}</script><!-- End Schema.org --></head><body data-id="ElasticSearch" data-main-title="Elasticsearch" data-article-props="{&quot;seeAlsoStyle&quot;:&quot;links&quot;}" data-template="article" data-breadcrumbs="Notes///java///notes///DB"><div class="wrapper"><main class="panel _main"><header class="panel__header"><div class="container"><h3>Notes  Help</h3><div class="panel-trigger"></div></div></header><section class="panel__content"><div class="container"><article class="article" data-shortcut-switcher="inactive"><h1 data-toc="ElasticSearch" id="ElasticSearch.md">Elasticsearch</h1><ul class="list _bullet" id="-euspxb_456"><li class="list__item" id="-euspxb_457"><p>ES不等于搜索引擎</p></li><li class="list__item" id="-euspxb_458"><p>分布式的搜索,存储,数据分析引擎</p></li><li class="list__item" id="-euspxb_459"><p>优点: </p><ol class="list _decimal" id="-euspxb_460" type="1"><li class="list__item" id="-euspxb_461"><p>面向开发者友好,屏蔽了Luncene的复杂特性,集群自动发现</p></li><li class="list__item" id="-euspxb_462"><p>自动维护数据在多个节点上的建立</p></li><li class="list__item" id="-euspxb_463"><p>帮我们做搜索请求的负载均衡</p></li><li class="list__item" id="-euspxb_464"><p>自动维护冗余副本,保证了部分节点宕机的情况下仍然不会有任何数据丢失</p></li><li class="list__item" id="-euspxb_465"><p>ES基于Lucene提供了很多高级功能:符合查询,聚合分析,基于地理位置</p></li><li class="list__item" id="-euspxb_466"><p>对于大公司,可以构建几百台服务器的大型分布式集群,处理PB级别数据</p></li><li class="list__item" id="-euspxb_467"><p>相遇传统数据库,提供了全文见检索,同义词处理,相关度排名,聚合分析以及海量数据的近实时(NTR)处理,这些传统数据库完全做不到</p></li></ol></li><li class="list__item" id="-euspxb_468"><p>应用领域 </p><ol class="list _decimal" id="-euspxb_469" type="1"><li class="list__item" id="-euspxb_470"><p>搜索引擎</p></li><li class="list__item" id="-euspxb_471"><p>各大网站的用户行为日志(点击,浏览,收藏,评论)</p></li><li class="list__item" id="-euspxb_472"><p>BI 数据分析</p></li><li class="list__item" id="-euspxb_473"><p>Github</p></li><li class="list__item" id="-euspxb_474"><p>ELK (Elasticseach(数据存储) Logstash(日志采集) Kibana(可视化))</p></li></ol></li></ul><section class="chapter"><h2 id="-euspxb_475" data-toc="-euspxb_475">核心概念和原理</h2><ul class="list _bullet" id="-euspxb_476"><li class="list__item" id="-euspxb_477"><p>搜索 </p><ul class="list _bullet" id="-euspxb_478"><li class="list__item" id="-euspxb_479"><p>SQL 用了%不能用索引 -&gt;性能差 </p><ul class="list _bullet" id="-euspxb_480"><li class="list__item" id="-euspxb_481"><p>like % 搜索时间复杂度O(n)</p></li></ul></li><li class="list__item" id="-euspxb_482"><p>不能分词</p></li></ul></li><li class="list__item" id="-euspxb_483"><p>倒排索引 </p><ol class="list _decimal" id="-euspxb_484" type="1"><li class="list__item" id="-euspxb_485"><p>分词</p></li><li class="list__item" id="-euspxb_486"><p>生成相关度 *</p></li><li class="list__item" id="-euspxb_487"><p>排序</p></li><li class="list__item" id="-euspxb_488"><p>空间换时间</p></li></ol><ul class="list _bullet" id="-euspxb_489"><li class="list__item" id="-euspxb_490"><p>数据结构 </p><ul class="list _bullet" id="-euspxb_491"><li class="list__item" id="-euspxb_492"><p>document List</p></li><li class="list__item" id="-euspxb_493"><p>关键词在每个doc中出现的次数 TF term frequency 词频</p></li><li class="list__item" id="-euspxb_494"><p>IDF inverse doc frequency</p></li><li class="list__item" id="-euspxb_495"><p>关键词在当前doc出现的次数</p></li><li class="list__item" id="-euspxb_496"><p>每个doc的长度 越长相关度越低</p></li><li class="list__item" id="-euspxb_497"><p>包含这个关键词的所有doc的平均长度</p></li></ul></li></ul></li><li class="list__item" id="-euspxb_498"><p>核心概念 </p><ul class="list _bullet" id="-euspxb_499"><li class="list__item" id="-euspxb_500"><p>集群:每个集群至少包含两个节点</p></li><li class="list__item" id="-euspxb_501"><p>Node:集群中的节点 一个节点不代表是一台机器</p></li><li class="list__item" id="-euspxb_502"><p>Filed: 一个数据字段,与index和type可以定位一个doc</p></li><li class="list__item" id="-euspxb_503"><p>Document:ES最小的数据单元 Json</p></li><li class="list__item" id="-euspxb_504"><p>Type:逻辑上的数据分类</p></li><li class="list__item" id="-euspxb_505"><p>Index:一类相同或者相似的doc</p></li><li class="list__item" id="-euspxb_506"><p>分片shard </p><ol class="list _decimal" id="-euspxb_507" type="1"><li class="list__item" id="-euspxb_508"><p>一个index包含多个shard,默认5p,默认每个p分配一个r,p的数量在创建索引的时候设置,如果想修改,需要重建索引</p></li><li class="list__item" id="-euspxb_509"><p>每个shard都是一个lucene实例,有完整的创建索引的处理请求能力</p></li><li class="list__item" id="-euspxb_510"><p>ES会自动在nodes尚未我们zuoshard均衡</p></li><li class="list__item" id="-euspxb_511"><p>一个doc不可能同时存在于多个PShard,但是可以同时多个Rshard</p></li><li class="list__item" id="-euspxb_512"><p>p和对应的r不能同时存在于同一个节点,所以最低的可用配置是两台节点,互为主备</p></li></ol><ul class="list _bullet" id="-euspxb_513"><li class="list__item" id="-euspxb_514"><p>横向扩容</p></li><li class="list__item" id="-euspxb_515"><p>Parimary Shared</p></li><li class="list__item" id="-euspxb_516"><p>Replica Shard</p></li></ul></li></ul></li><li class="list__item" id="-euspxb_517"><p>容错 </p><ul class="list _bullet" id="-euspxb_518"><li class="list__item" id="-euspxb_519"><p>两台机子p0,p1,p2 r0,r1,r2 p挂掉之后r顶上</p></li><li class="list__item" id="-euspxb_520"><p>容错机制 </p><ol class="list _decimal" id="-euspxb_521" type="1"><li class="list__item" id="-euspxb_522"><p>master选举 </p><ol class="list _decimal" id="-euspxb_523" type="1"><li class="list__item" id="-euspxb_524"><p>findMaster </p><ol class="list _decimal" id="-euspxb_525" type="1"><li class="list__item" id="-euspxb_526"><p>脑裂 可能会产生多个master节点</p></li></ol></li><li class="list__item" id="-euspxb_527"><p>判断自己是否为master</p></li><li class="list__item" id="-euspxb_528"><p>广播/findMaster</p></li></ol></li><li class="list__item" id="-euspxb_529"><p>replica容错</p></li><li class="list__item" id="-euspxb_530"><p>重启故障机</p></li><li class="list__item" id="-euspxb_531"><p>数据恢复 </p><ul class="list _bullet" id="-euspxb_532"><li class="list__item" id="-euspxb_533"><p>只拷贝新增数据 不是全量拷贝</p></li></ul></li></ol></li></ul></li></ul></section><section class="chapter"><h2 id="-euspxb_534" data-toc="-euspxb_534">使用</h2><ul class="list _bullet" id="-euspxb_535"><li class="list__item" id="-euspxb_536"><p>健康值检查</p></li></ul><section class="chapter"><h3 id="crud" data-toc="crud">CRUD</h3><ul class="list _bullet" id="-euspxb_537"><li class="list__item" id="-euspxb_538"><p>Query String search 类似于Url挂参数搜索</p></li><li class="list__item" id="-euspxb_539"><p>Query DSL</p></li><li class="list__item" id="-euspxb_540"><p>Query and filter</p></li></ul><div class="code-block" data-lang="none">
+GET /_cat/health?v
+PUT /test_index?pretty
+GET _cat/indices
+DELETE /test_index?pretty
+
+PUT /product/_doc/1
+{
+    &quot;name&quot;:&quot;xiaomi erji&quot;,
+    &quot;desc&quot;:&quot;erji zhong de huangmenji&quot;,
+    &quot;price&quot;:1999,
+    &quot;tags&quot;:[&quot;low&quot;,&quot;bufangshui&quot;,&quot;yinzhicha&quot;]
+}
+PUT /product/_doc/2
+{
+    &quot;name&quot;:&quot;xiaomi shouji&quot;,
+    &quot;desc&quot;:&quot;erji zhong de huangmenji&quot;,
+    &quot;price&quot;:2999,
+    &quot;tags&quot;:[&quot;low&quot;,&quot;bufangshui&quot;,&quot;yinzhicha&quot;]
+}
+PUT /product/_doc/3
+{
+    &quot;name&quot;:&quot;xiaomi nfc shouji&quot;,
+    &quot;desc&quot;:&quot;erji zhong de huangmenji&quot;,
+    &quot;price&quot;:3999,
+    &quot;tags&quot;:[&quot;low&quot;,&quot;bufangshui&quot;,&quot;yinzhicha&quot;]
+}
+PUT /product/_doc/4
+{
+    &quot;name&quot;:&quot;xiaomi yinxiang&quot;,
+    &quot;desc&quot;:&quot;erji zhong de huangmenji&quot;,
+    &quot;price&quot;:4999,
+    &quot;tags&quot;:[&quot;low&quot;,&quot;bufangshui&quot;,&quot;yinzhicha&quot;]
+}
+
+
+GET /product/_doc/_search
+{
+  &quot;query&quot;:{
+    &quot;match&quot;:{
+      &quot;name&quot;:&quot;shouji xiaomi&quot;
+    }
+  },
+    &quot;sort&quot;:[
+      {&quot;price&quot;:&quot;desc&quot;}]
+    
+}
+POST /product/_doc/1/update
+{
+  &quot;doc&quot;:[]
+}
+
+DELETE /product/_doc/1
+</div></section></section><section class="chapter"><h2 id="es" data-toc="es">ES分布式文档系统</h2><ol class="list _decimal" id="-euspxb_542" type="1"><li class="list__item" id="-euspxb_543"><p>实现高可用 </p><ol class="list _decimal" id="-euspxb_544" type="1"><li class="list__item" id="-euspxb_545"><p>ES在分配单个索引的分片时会将每个分片尽可能分配到更多的节点上 </p><ul class="list _bullet" id="-euspxb_546"><li class="list__item" id="-euspxb_547"><p>但是实际情况取决于集群拥有的分片和索引以及他们的大小,不一定总是能均匀的分布</p></li></ul></li><li class="list__item" id="-euspxb_548"><p>ES不允许Primary与Replica放在同一个节点中,并且同一个节点不接受完全相同的两个Replica</p></li><li class="list__item" id="-euspxb_549"><p>同一个节点允许多个索引的分片同时存在</p></li></ol></li><li class="list__item" id="-euspxb_550"><p>容错 </p><ol class="list _decimal" id="-euspxb_551" type="1"><li class="list__item" id="-euspxb_552"><p>向下兼容</p></li><li class="list__item" id="-euspxb_553"><p>自行恢复的能力</p></li></ol></li><li class="list__item" id="-euspxb_554"><p>ESNode </p><ul class="list _bullet" id="-euspxb_555"><li class="list__item" id="-euspxb_556"><p>默认配置 node.master=true node,data=true</p></li></ul><ol class="list _decimal" id="-euspxb_557" type="1" start="2"><li class="list__item" id="-euspxb_558"><p>Master:主节点,每个集群只有一个 专注于集群的管理 协调节点-&gt;转发 </p><ol class="list _decimal" id="-euspxb_559" type="1"><li class="list__item" id="-euspxb_560"><p>尽量避免node.data = true</p></li></ol></li><li class="list__item" id="-euspxb_561"><p>voting:投票节点 </p><ol class="list _decimal" id="-euspxb_562" type="1"><li class="list__item" id="-euspxb_563"><p>master宕机了投票选举master 数量等于数据节点</p></li><li class="list__item" id="-euspxb_564"><p>设置了Node.voting_only=true 即使node.master=true 也不会参选</p></li><li class="list__item" id="-euspxb_565"><p>voting_only仍然可以做数据节点(node.data=true)</p></li></ol></li><li class="list__item" id="-euspxb_566"><p>coordinating:协调节点 node.master|node.data|node.voting_only|节点详情 -|-|-|- true|尽量false|false|master节点 /候选节点,参选为master false|true|true|投票节点,不仅投票,还存数据 false|false|true|不存数据的投票节点 -&gt; 协调节点 false|true|false | 数据节点,主要负责数据的查询以及增删改</p></li></ol></li><li class="list__item" id="-euspxb_567"><p>投票选举master </p><ol class="list _decimal" id="-euspxb_568" type="1"><li class="list__item" id="-euspxb_569"><p>集群节点数量一般是奇数个 投票节点与与数据节点数量相同 </p><ol class="list _decimal" id="-euspxb_570" type="1"><li class="list__item" id="-euspxb_571"><p>如果是偶数个,默认投票节点减少一个</p></li></ol></li><li class="list__item" id="-euspxb_572"><p>步骤 </p><ol class="list _decimal" id="-euspxb_573" type="1"><li class="list__item" id="-euspxb_574"><p>寻找clusterStateVersion比自己高的节点,想起发送选票</p></li><li class="list__item" id="-euspxb_575"><p>如果clusterStateVersion一样,则在候选节点(包含当前节点)中选id最小的一个节点,向该节点发送选举投票</p></li><li class="list__item" id="-euspxb_576"><p>如果一个节点收到足够多的投票并且也向自己投票了,那么该节点成为master开始发布集群状态</p></li></ol></li></ol></li><li class="list__item" id="-euspxb_577"><p>脑裂问题 </p><ol class="list _decimal" id="-euspxb_578" type="1"><li class="list__item" id="-euspxb_579"><p>discovery.zen.minimum_master_nodes=N/2+1</p></li><li class="list__item" id="-euspxb_580"><p>小于等于两台机子的集群会产生脑裂</p></li></ol></li></ol></section><section class="chapter"><h2 id="es" data-toc="es">ES 查询语法</h2><ul class="list _bullet" id="-euspxb_581"><li class="list__item" id="-euspxb_582"><p id="-euspxb_583">search</p><ul class="list _bullet" id="-euspxb_584"><li class="list__item" id="-euspxb_585"><p>timeout true/false(默认) </p><ul class="list _bullet" id="-euspxb_586"><li class="list__item" id="-euspxb_587"><p>超过指定时间,停止查询,查到多少条返回多少条</p></li></ul></li></ul></li><li class="list__item" id="-euspxb_588"><p id="-euspxb_589">Query String</p><ul class="list _bullet" id="-euspxb_590"><li class="list__item" id="-euspxb_591"><p>Url </p><ul class="list _bullet" id="-euspxb_592"><li class="list__item" id="-euspxb_593"><p><code class="code" id="-euspxb_594">GET /product/_search?from=0&amp;size=2&amp;sort=price:asc</code></p><ul class="list _bullet" id="-euspxb_595"><li class="list__item" id="-euspxb_596"><p>取前两个 排序 </p><ul class="list _bullet" id="-euspxb_597"><li class="list__item" id="-euspxb_598"><p>加了排序之后没有相关度分数 </p><ul class="list _bullet" id="-euspxb_599"><li class="list__item" id="-euspxb_600"><p>因为加了排序之后score就没有意义了 score是null</p></li></ul></li></ul></li></ul></li></ul></li></ul></li><li class="list__item" id="-euspxb_601"><p id="-euspxb_602">QueryDSL 重点</p><div class="code-block" data-lang="none">
+  GET /product/_search
+  {
+    &quot;query&quot;: {
+      &quot;match_all&quot;: {}
+    }
+  }
+  # get
+  GET /product/_search
+  {
+    &quot;query&quot;: {
+      &quot;match&quot;: {
+        &quot;name&quot;: &quot;nfc&quot;
+      }
+    }
+  }
+
+  # sort
+  GET /product/_search
+  {
+    &quot;query&quot;: {
+      &quot;match&quot;: {
+        &quot;name&quot;: &quot;xiaomi&quot;
+      }
+    },
+    &quot;sort&quot;: [
+      {
+        &quot;FIELD&quot;: {
+          &quot;order&quot;: &quot;desc&quot;
+        }
+      }
+    ]
+  }
+  # multi match 多字段查询一个关键词
+  GET /product/_search
+  {
+    &quot;query&quot;: {
+      &quot;multi_match&quot;: {
+        &quot;query&quot;: &quot;nfc&quot;,
+        &quot;fields&quot;: [&quot;name&quot;,&quot;desc&quot;]
+      }
+    },
+    &quot;sort&quot;: [
+      {
+        &quot;price&quot;: &quot;asc&quot;
+      }
+    ]
+  }
+
+  # _source 指定返回字段
+
+  GET /product/_search
+  {
+    &quot;query&quot;: {
+      &quot;match&quot;: {
+        &quot;name&quot;: &quot;nfc&quot;
+      }
+    },
+    &quot;_source&quot;: [&quot;name&quot;,&quot;price&quot;]
+  }
+
+
+  #分页 from size
+  GET /product/_search
+  {
+    &quot;query&quot;: {
+      &quot;match_all&quot;: {}
+    },
+    &quot;sort&quot;: [
+      {
+          &quot;price&quot;: &quot;asc&quot;
+      }
+    ], 
+    &quot;from&quot;: 0,
+    &quot;size&quot;: 1
+  }
+
+# 全文检索
+GET /product/_search
+{
+  &quot;query&quot;: {
+    &quot;term&quot;: {
+        &quot;name&quot;: &quot;nfc&quot;
+
+    }
+  }
+}
+
+# 分词器
+GET /_analyze
+{
+  &quot;analyzer&quot;:&quot;standard&quot;,
+  &quot;text&quot;:&quot;xiaomi nfc phone&quot;
+}
+
+#短语搜索
+GET /product/_search
+{
+  &quot;query&quot;: {
+    &quot;match_phrase&quot;: {
+      &quot;name&quot;: &quot;xiaomi&quot;
+    }
+    , &quot;bool&quot;: {
+
+    }
+  }
+}
+
+
+#query and filter
+GET /product/_search
+{
+  &quot;query&quot;: {
+    &quot;bool&quot;: {
+      &quot;must&quot;: [
+        {&quot;match&quot;: {&quot;name&quot;: &quot;xiaomi&quot;}},
+        {&quot;match&quot;: {&quot;desc&quot;  &quot;shouji&quot;}}],
+        &quot;filter&quot;: [
+          {&quot;match_phrase&quot;:{&quot;name&quot;:&quot;xiaomi&quot;}},
+          {&quot;range&quot;:{&quot;price&quot;:{ &quot;gte&quot;:10,&quot;lte&quot;:20}}}
+        ],
+        &quot;should&quot;: [
+          {&quot;range&quot;: {
+            &quot;FIELD&quot;: {
+              &quot;gte&quot;: 10,
+              &quot;lte&quot;: 20
+            }
+          }}
+        ],
+        &quot;minimum_should_match&quot;: 1
+
+    }
+  }
+}
+
+
+# 高亮
+GET /product/_search
+{
+   &quot;query&quot;: {
+     &quot;match_phrase&quot;: {
+       &quot;name&quot;: &quot;nfc&quot;
+     }
+   },
+   &quot;highlight&quot;: {
+     &quot;fields&quot;: {
+       &quot;name&quot;: {}
+     }
+   }
+}
+
+#scroll search 
+GET /product/_search?scroll=1m
+{
+  &quot;query&quot;: {
+    &quot;match_all&quot;: {}
+  },
+  &quot;sort&quot;: [
+    {
+      &quot;price&quot;: {
+        &quot;order&quot;: &quot;desc&quot;
+      }
+    }
+  ]
+}
+
+GET /_search/scroll
+{
+  &quot;scroll_id&quot; : &quot;FGluY2x1ZGVfY29udGV4dF91dWlkDXF1ZXJ5QW5kRmV0Y2gBFjhiSmpqSkhqU1FlR1pfbXJYaTZ2ZVEAAAAAAABoRBZJOWhLcFBtUVJfMlg4SU4wQldrV2VR&quot;
+}
+
+
+</div></li><li class="list__item" id="-euspxb_604"><p id="-euspxb_605">关键词</p><ul class="list _bullet" id="-euspxb_606"><li class="list__item" id="-euspxb_607"><p><code class="code" id="-euspxb_608">&quot;term:{}&quot;</code> query-term完全匹配 不会分词</p></li><li class="list__item" id="-euspxb_609"><p><code class="code" id="-euspxb_610">&quot;match&quot;:{}</code> 匹配 模糊匹配 先对输入进行分词,对分词后的结果进行查询</p></li><li class="list__item" id="-euspxb_611"><p><code class="code" id="-euspxb_612">&quot;match_parse&quot;:{}</code></p></li><li class="list__item" id="-euspxb_613"><p><code class="code" id="-euspxb_614">&quot;match_All&quot;:{}</code> 匹配所有</p></li><li class="list__item" id="-euspxb_615"><p><code class="code" id="-euspxb_616">&quot;multi_match&quot;:{}</code> :根据多个字段查询一个关键词</p></li><li class="list__item" id="-euspxb_617"><p><code class="code" id="-euspxb_618">&quot;_source:{}&quot;元数据,想要查询多个字段</code></p></li><li class="list__item" id="-euspxb_619"><p><code class="code" id="-euspxb_620">&quot;from&quot;:0,&quot;size&quot;:2</code>deep-paging 分页</p></li><li class="list__item" id="-euspxb_621"><p><code class="code" id="-euspxb_622">&quot;range&quot;:{}</code> <code class="code" id="-euspxb_623">&quot;gte&quot;: NUM</code> <code class="code" id="-euspxb_624">&quot;lte&quot;:NUM</code> 取范围</p></li></ul></li></ul><section class="chapter"><h3 id="-euspxb_625" data-toc="-euspxb_625">全文检索</h3><ul class="list _bullet" id="-euspxb_626"><li class="list__item" id="-euspxb_627"><p>term </p><ul class="list _bullet" id="-euspxb_628"><li class="list__item" id="-euspxb_629"><p>不会被分词</p></li></ul></li></ul></section><section class="chapter"><h3 id="-euspxb_630" data-toc="-euspxb_630">短语搜索</h3><ul class="list _bullet" id="-euspxb_631"><li class="list__item" id="-euspxb_632"><p>match_phrase</p></li></ul></section><section class="chapter"><h3 id="query-and-filter" data-toc="query-and-filter">Query and filter 查询和过滤</h3><ul class="list _bullet" id="-euspxb_633"><li class="list__item" id="-euspxb_634"><p>bool </p><ul class="list _bullet" id="-euspxb_635"><li class="list__item" id="-euspxb_636"><p id="-euspxb_637">must</p></li><li class="list__item" id="-euspxb_638"><p id="-euspxb_639">filter 过滤器,不计算相关度分数,cache</p><ul class="list _bullet" id="-euspxb_640"><li class="list__item" id="-euspxb_641"><p>缓存功能 </p><ol class="list _decimal" id="-euspxb_642" type="1"><li class="list__item" id="-euspxb_643"><p>filter并不是每次执行都会进行cache,而是当执行一定次数的时候才会进行cache一个二进制数组,1表示匹配,0表示不匹配,这个次数不是固定的</p></li><li class="list__item" id="-euspxb_644"><p>filter会优先过滤掉稀疏的数据,保留匹配的cache数组</p></li><li class="list__item" id="-euspxb_645"><p>filter cache保存的是匹配的结果,不需要再从倒排索引中去查找比对,大大提高查询速度</p></li><li class="list__item" id="-euspxb_646"><p>filter一般会在query之前执行,过滤掉一部分数据,从而提高query速度</p></li><li class="list__item" id="-euspxb_647"><p>filter不计算相关度分数,在执行效率上较query高</p></li><li class="list__item" id="-euspxb_648"><p>党员数据发生改变时,cache也会更新</p></li></ol></li></ul></li><li class="list__item" id="-euspxb_649"><p id="-euspxb_650">should 可能满足 or</p><ul class="list _bullet" id="-euspxb_651"><li class="list__item" id="-euspxb_652"><p>多个条件,满足minimum_should_match 默认是0</p></li></ul></li><li class="list__item" id="-euspxb_653"><p id="-euspxb_654">must_not 不计算相关度分数</p></li></ul></li></ul></section><section class="chapter"><h3 id="deep-paging" data-toc="deep-paging">Deep paging</h3><ol class="list _decimal" id="-euspxb_655" type="1"><li class="list__item" id="-euspxb_656"><p>深度分页</p></li><li class="list__item" id="-euspxb_657"><p>返回结果不要超过1000个</p></li><li class="list__item" id="-euspxb_658"><p>解决办法 </p><ul class="list _bullet" id="-euspxb_659"><li class="list__item" id="-euspxb_660"><p>避免深查询</p></li><li class="list__item" id="-euspxb_661"><p>scroll search</p></li></ul></li></ol><section class="chapter"><h4 id="scroll-search" data-toc="scroll-search">scroll search</h4><ul class="list _bullet" id="-euspxb_662"><li class="list__item" id="-euspxb_663"><p>先查询一部分,给查询的加一个标识,下次继续查询后面的 GET /product/_search?scroll=1m 1m是有效期,1s 1ms </p><ul class="list _bullet" id="-euspxb_664"><li class="list__item" id="-euspxb_665"><p><code class="code" id="-euspxb_666">&quot;scroll&quot;:&quot;1m&quot;</code> 延期</p></li></ul></li></ul></section></section></section><section class="chapter"><h2 id="mapping" data-toc="mapping">Mapping</h2><ul class="list _bullet" id="-euspxb_667"><li class="list__item" id="-euspxb_668"><p>mapping 就是es数据字段field的type元数据,es在创建索引的时候,dynamic mapping会自动为不同的数据指定相应的mapping mapping中包含了字段的类型,搜索方式(exact value或者full text),分词器等</p></li><li class="list__item" id="-euspxb_669"><p>查看mapping <code class="code" id="-euspxb_670">GET /product/_mappings</code></p></li><li class="list__item" id="-euspxb_671"><p>搜索方式 </p><ol class="list _decimal" id="-euspxb_672" type="1"><li class="list__item" id="-euspxb_673"><p>exact value 精确匹配:在倒排索引过程中,分词器会将field作为一个整体创建到索引中</p></li><li class="list__item" id="-euspxb_674"><p>full text 全文检索,分词,近义词,混淆词,大小写,词性,过滤,时态转换等(normalization)</p></li></ol></li><li class="list__item" id="-euspxb_675"><p>Mapping Parameter </p><ol class="list _decimal" id="-euspxb_676" type="1"><li class="list__item" id="-euspxb_677"><p>index 是否对当前字段创建索引,默认为true,如果不创建索引,该字段不会通过索引被搜索到,但仍会在source元数据中展示</p></li><li class="list__item" id="-euspxb_678"><p>analyzer 指定分析器(character filter,tokenizer,Token filters)</p></li><li class="list__item" id="-euspxb_679"><p>boost 对当前字段相关度的评分权重,默认是1</p></li><li class="list__item" id="-euspxb_680"><p>coerce 是否允许强制类型转换</p></li><li class="list__item" id="-euspxb_681"><p>copy_to</p></li></ol></li></ul></section><div class="last-modified">Last modified: 30 四月 2024</div><div data-feedback-placeholder="true"></div><div class="navigation-links _bottom"><a href="kafka.html" class="navigation-links__prev">Kafka</a><a href="mysql.html" class="navigation-links__next">Table of Contents</a></div></article><div id="disqus_thread"></div></div></section></main></div><script src="https://resources.jetbrains.com/writerside/apidoc/6.10.0-b259/app.js"></script></body></html>

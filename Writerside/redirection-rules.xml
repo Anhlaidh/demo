@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rules SYSTEM "https://resources.jetbrains.com/writerside/1.0/redirection-rules.dtd">
+<rules>
+    <!-- format is as follows
+    <rule id="<unique id>">
+        <accepts>page.html</accepts>
+    </rule>
+    -->
+    <rule id="65535ad0">
+        <description><![CDATA[Created after removal of "<OAuth.md>" from Instance Name]]></description>
+        <accepts>OAuth.html</accepts>
+    </rule>
+    <rule id="9f24426">
+        <description>Created after removal of "Notes" from Instance Name</description>
+        <accepts>README.html</accepts>
+    </rule>
+    <rule id="4b5143bc">
+        <description>Created after removal of "Tutorial" from Instance Name</description>
+        <accepts>Tutorial.html</accepts>
+    </rule>
+    <rule id="39a4b18b">
+        <description>Created after removal of "Reference" from Instance Name</description>
+        <accepts>Reference.html</accepts>
+    </rule>
+    <rule id="40676c56">
+        <description>Created after removal of "Overview" from Instance Name</description>
+        <accepts>Overview.html</accepts>
+    </rule>
+    <rule id="4f9c4c3f">
+        <description>Created after removal of "How to" from Instance Name</description>
+        <accepts>How-to.html</accepts>
+    </rule>
+    <rule id="28657459">
+        <description>Created after removal of "demoTopic" from Instance Name</description>
+        <accepts>demoTopic.html</accepts>
+    </rule>
+</rules>
